@@ -41,10 +41,8 @@ function validate(origin) {
 
 	var photo = document.getElementById("uploadBtn").value;
 	var extension = photo.substring(photo.lastIndexOf('.') + 1);
-	if(extension == "JPEG" || extension == "jpeg" || extension == "jpg" || extension == "JPG" || 
-		extension == "png" || extension == "PNG" || extension == "gif" || extension == "GIF"){	
-	}
-	else{
+	if( !(extension == "JPEG" || extension == "jpeg" || extension == "jpg" || extension == "JPG" || 
+		extension == "png" || extension == "PNG" || extension == "gif" || extension == "GIF") && (photo != "") ) {
 		errors += "<label class='myLabel'>Only JPG, PNG and GIF images are allowed as profile photo</label><br>";
 	}
 
