@@ -32,11 +32,12 @@ function readURL(input) {
     }
 }
 
+//function for client side validation
 function validate(origin) {
 	var errors = "<br><label class='myLabel'>Please Fix the following errors:</label><br>";
 	var letters = /^[a-zA-Z ]+$/;
 	var numbers = /^[0-9]+$/;
-	var emailRegex = /^[a-z0-9_-]+@[a-z0-9._-]+\.[a-z]+$/;
+	var emailRegex = /^[a-z0-9_-]+@[a-z0-9._-]+\.[a-z]+$/i;
 
 	var photo = document.getElementById("uploadBtn").value;
 	var extension = photo.substring(photo.lastIndexOf('.') + 1);
