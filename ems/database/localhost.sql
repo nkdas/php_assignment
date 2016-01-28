@@ -71,10 +71,6 @@ CREATE TABLE IF NOT EXISTS `details` (
 -- Dumping data for table `details`
 --
 
-INSERT INTO `details` (`id`, `username`, `password`, `firstname`, `middlename`, `lastname`, `suffix`, `gender`, `dob`, `marital`, `employement`, `employer`, `email`, `street`, `city`, `state`, `zip`, `telephone`, `mobile`, `fax`, `ostreet`, `ocity`, `ostate`, `ozip`, `otelephone`, `omobile`, `ofax`, `emailcheck`, `messagecheck`, `phonecheck`, `anycheck`, `more`, `photo`, `activation`, `activation_key`) VALUES
-(83, 'neeraj', '6876f31c02ad2082dd2f7c3fb0b90b90', 'Neeraj', 'Kumar', 'Das', 'M.C.A', 1, '1991-08-18', 'Single', 'Student', 'Mindfire Solutions', 'nkdas91@gmail.com', 'CM/12 VSS Nagar', 'Bhubaneswar', 'Odisha', '751007', '8018770024', '8018770024', '', 'IDCO 2000, Mancheswar', 'Bhubaneswar', 'Odisha', '751010', '8018770024', '8018770024', '', 1, 1, 0, 0, '', 'android-5-0-lollipop-material-2400.jpg', 1, 'fe9fc289c3ff0af142b6d3bead98a923'),
-(86, 'hewlett', '6876f31c02ad2082dd2f7c3fb0b90b90', 'Bill', '', 'Hewlett', 'M.Tech', 1, '2016-01-15', 'Single', 'Student', 'mindfiresolutions', 'nkdas91@outlook.com', 'cm-12', 'bhubaneswar', 'odisha', '751007', '8888888888', '8888888888', '', '', '', '', '', '', '', '', 0, 0, 0, 0, '', 'userTile.png', 1, '93db85ed909c13838ff95ccfa94cebd9');
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
