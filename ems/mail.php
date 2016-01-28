@@ -1,6 +1,11 @@
 <?php
 session_start();
 require 'PHPMailerAutoload.php';
+
+// email credentials (change these if you need to use your own email id)
+$username = "neerajkumardas7@gmail.com";
+$password = "@pp1e@pp1e";
+
 // check if a user is signed in
 if ($_SESSION['id']) {
 
@@ -12,9 +17,9 @@ if ($_SESSION['id']) {
 	$mail->Host = "smtp.gmail.com";
 	$mail->Port = 465; // or 587
 	$mail->IsHTML(true);
-	$mail->Username = "neerajkumardas7@gmail.com";
-	$mail->Password = "@pp1e@pp1e";
-	$mail->SetFrom("neerajkumardas7@gmail.com");
+	$mail->Username = $username;
+	$mail->Password = $password;
+	$mail->SetFrom("$username");
 
 	//fetch details from the session if present
 	try
