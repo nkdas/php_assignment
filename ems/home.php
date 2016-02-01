@@ -1,5 +1,6 @@
 <?php 
 require_once('db_connection.php');
+require('header.php');
 
 // this variable acts as a flag to determine if user details are retrieved successfully from the database
 // and weather to show the home page or not

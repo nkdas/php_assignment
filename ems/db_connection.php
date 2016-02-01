@@ -11,5 +11,4 @@ $connection = new mysqli($dbServername, $dbUsername, $dbPassword, $dbName);
 if ($connection->connect_error) {
     $_SESSION['message'] = "Unable to connect to the database.<br>This application will not be able to serve you.";
 }
-require('header.php');
 ?>

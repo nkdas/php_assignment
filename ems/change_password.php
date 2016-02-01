@@ -1,5 +1,6 @@
 <?php
 require_once('db_connection.php');
+require('header.php');
 
 // get key from the url
 // if the url has a 'key', it means user has forgotten the password and wants to change it

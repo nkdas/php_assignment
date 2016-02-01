@@ -14,4 +14,5 @@ session_start();
 		<link rel="stylesheet" href="css/style.css">
 		<script src="js/app.js"></script>
 		<script src="js/validation.js"></script>
+		<script src="js/login.js"></script>
 	</head>

@@ -1,5 +1,6 @@
 <?php 
 require_once('db_connection.php');
+require('header.php');
 
 // variable to store messages
 $message = '';

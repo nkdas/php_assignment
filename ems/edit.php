@@ -1,5 +1,6 @@
  <?php
 require_once('db_connection.php');
+require('header.php');
 require('set_data.php');
 require('validate.php');
 require('db_functions.php');
