@@ -40,9 +40,9 @@ if (isset($_SESSION['id'])) {
                     </div>
                 </div>
 
-                <form class="form">
+                <form class="form" method="post">
                     <div class="row">
-                        <div class="col-md-12"> 
+                        <div class="col-md-12">
                             <div id="loginForm" class="jumbotron">
                                 <label class="myLabel">Username</label>
                                 <div class="form-group">
@@ -52,7 +52,7 @@ if (isset($_SESSION['id'])) {
                                 <div class="form-group">
                                     <input name="password" type="password" class="form-control" id="password" value="<?php echo $_POST['password']; ?>"><br>
                                 </div>
-                                <input name="signin" id="signin" type="submit" class="btn btn-primary" value="Sign in">
+                                <input name="signin" id="signin" type="button" class="btn btn-primary" value="Sign in"><br>
                                 <label class="myLabel"><a href="forgot_password.php">Forgot password? Click here!</a></label><br>
                                 <label class="myLabel"><a href="register.php">New user? Sign up here!</a></label>
                             </div>

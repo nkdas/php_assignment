@@ -8,7 +8,6 @@ function changeAppearanceError(element, message) {
 	$(".has-error .form-control-feedback").css("color", "#f03");
 	$(".has-error .form-control").css("border-color", "#f03");
 	$(element).next('span').after("<label class='myLabel'>"+message+"</label>");
-	flag = 1;
 }
 
 function changeAppearanceCorrect(element) {
@@ -19,11 +18,9 @@ function changeAppearanceCorrect(element) {
 	$(element).after("<span class='glyphicon glyphicon-ok form-control-feedback' aria-hidden='true'></span>");
 	$(".has-success .form-control-feedback").css("color", "#092");
 	$(".has-success .form-control").css("border-color", "#092");
-	flag = 1;
 }
 
 $(document).ready(function(){
-
 	// validation when the user leaves an input field
   	$(".required").on('blur', function(){
   		var letters = /^[a-zA-Z ]+$/;
@@ -31,7 +28,7 @@ $(document).ready(function(){
 		var emailRegex = /^[a-z0-9_-]+@[a-z0-9._-]+\.[a-z]+$/i;
   		var elementId = $(this).attr('id');
 		
-		if ((elementId == 'username') || (elementId == 'password')) { 
+		if (elementId == 'password') { 
 			if ($(this).val().length < 6) {
 				changeAppearanceError(this,"Should be of atleast 6 characters");
 			}
@@ -58,15 +55,6 @@ $(document).ready(function(){
 			|| (elementId == 'employer')){ 
 			if (!$(this).val().match(letters)) {
 				changeAppearanceError(this,"Only letters are allowed in this fields");
-			}
-			else {
-				changeAppearanceCorrect(this);
-			}
-		}
-		
-		if (elementId == 'email') { 
-			if (!$(this).val().match(emailRegex)) {
-				changeAppearanceError(this,"Invalid EMail");
 			}
 			else {
 				changeAppearanceCorrect(this);
@@ -239,4 +227,61 @@ $(document).ready(function(){
 			return true;
 		}
   	});
+
+	// function to check uniqueness of username and email id as soon as user leaves the input field
+	$(".unique").on('blur', function(){
+		// check for which element the uniqueness is being checked (username or email id)
+		if ($(this).attr('id') == 'email') {
+			var element = 'email';
+		}
+		else if ($(this).attr('id') == 'username') {
+			var element = 'username';
+		}
+
+		// we need to check from where the request is coming from (registration page or edit page)
+		if ($(this).attr('class') == 'form-control unique edit') {
+			var from = 'edit';
+		}
+		else {
+			var from = 'register';
+		}
+
+		$.ajax({
+			type: "POST",
+			dataType: "json",
+			url: "validate.php",
+			data: "function=check_uniqueness&element=" + element + "&elementValue=" + $(this).val() + "&from=" + from,
+
+			success: function(data) {
+				if (data.status == 1) {
+					if (element == 'email') {
+						changeAppearanceError('#email', 'This Email ID is already taken');
+					}
+					else {
+						changeAppearanceError('#username', 'This username is already taken');	
+					}
+				}
+				else if (element == 'email') {
+					var emailRegex = /^[a-z0-9_-]+@[a-z0-9._-]+\.[a-z]+$/i;
+					if (!$('#email').val().match(emailRegex)) {
+						changeAppearanceError('#email','Invalid EMail');
+					}
+					else {
+						changeAppearanceCorrect('#email');
+					}
+				}
+				else if (element == 'username') {
+					if ($("#username").val().length < 6) {
+						changeAppearanceError('#username',"Should be of atleast 6 characters");
+					}
+					else {
+						changeAppearanceCorrect('#username'); 
+					}
+				} 
+			},
+			error: function(request, status, error) {
+				console.log('error');
+			},
+		});
+	});
 });

@@ -1,6 +1,4 @@
-<?php 
-//ini_set('display_errors','On');
-//error_reporting(E_ALL);
+<?php
 require_once('db_connection.php');
 
 // fetch username and password from $_POST
@@ -23,14 +21,12 @@ if ($query and $row = mysqli_fetch_assoc($query)) {
         echo json_encode($status);
     }
     else {
-        $_SESSION['message'] = "Please activate your account before signing in";
         $status = array('status' => '2');
         echo json_encode($status);
     }
 }
 else
 {
-    $_SESSION['message'] = "Either Username or Password is Invalid! ";
     $status = array('status' => '3');
     echo json_encode($status);
 }

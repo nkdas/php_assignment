@@ -1,4 +1,6 @@
 <?php
+require_once('db_connection.php');
+
 // $record will contain an array of data submitted by the user
 // $connection will store the database connection
 // $from will indicate which page is requesting a validation (registration page or the edit page)
@@ -109,10 +111,10 @@ function validate($record, $connection, $from) {
 		$query = mysqli_query($connection, "SELECT id 
 				FROM details
 				WHERE email = '$email'");
-			if ($query and $row = mysqli_fetch_assoc($query)) {
-				$errors[$i] = "This email id is already taken, Please use another";
-				$i++;
-			}       
+		if ($query and $row = mysqli_fetch_assoc($query)) {
+			$errors[$i] = "This email id is already taken, Please use another";
+			$i++;
+		}       
 	}
 
 	if (empty($record['gender'])) {
@@ -179,7 +181,50 @@ function validate($record, $connection, $from) {
 		$errors[$i] = "A mobile number must be of 10 digits";
 		$i++;
 	}
-
 	return $errors;
+}
+
+// function to check uniqueness of username and email id as soon as user leaves the input field
+$function_name = $_POST['function'];
+call_user_func($function_name);
+
+function check_uniqueness() {
+	global $connection;
+	$element = $_POST['element'];
+	$elementValue = $_POST['elementValue'];
+	$flag = 1;
+
+	// if we are checking for email uniqueness while the user is editing then we must skip the email id which the user is already using
+	if (($_POST['from'] == 'edit') && ($element ==  'email')) {
+		$userId = $_SESSION['id'];
+		$query = mysqli_query($connection, "SELECT id 
+			FROM details
+			WHERE email = '$elementValue' AND  id != $userId ");
+		if ($query and $row = mysqli_fetch_assoc($query)) {
+			$flag = 1;
+		}
+		else {
+			$flag = 2;
+		}    
+	}
+	else {
+		$query = mysqli_query($connection, "SELECT id 
+				FROM details
+				WHERE $element = '$elementValue'");
+		if ($query and $row = mysqli_fetch_assoc($query)) {
+			$flag = 1;
+		} 
+		else {
+			$flag = 2;
+		}
+	}
+	if ($flag == 1) {
+		$status = array('status' => '1');
+		echo json_encode($status);
+	}
+	else {
+		$status = array('status' => '2');
+		echo json_encode($status);
+	}
 }
 ?>

@@ -1,3 +1,4 @@
+// function to send credentials to the server and authenticate user
 $("document").ready(function(){
 	$("#signin").click(function(){
 		var errors = "";
@@ -17,17 +18,29 @@ $("document").ready(function(){
 					if (data.status == '1') {
 						window.location.replace("home.php");
 					}
+					else if (data.status == '2') {
+						errors += "<label class='myLabel'>Please activate your account before signing in</label><br>";
+						showErrors(errors);
+					}
+					else {
+						errors += "<label class='myLabel'>Either username or password is invalid</label><br>";
+						showErrors(errors);
+					}
 				},
 				error: function() {
 					errors += "Sorry, there was a problem!";
+					showErrors(errors);
 				},
 			});
 		}
-		else {
-			$('.message').html("<div id='message' class='jumbotron visibleDiv'>" +
-				"<label class='myLabel'>" + errors + "</label></div>");
-			window.scroll(0,0);
-			return false;
+		if (errors.length != 0) { 
+			showErrors(errors);
 		}
 	});
+
+	function showErrors(errors) {
+		$('.message').html("<div id='message' class='jumbotron visibleDiv'>" +
+				"<label class='myLabel'>" + errors + "</label></div>");
+			window.scroll(0,0);
+	}
 });
