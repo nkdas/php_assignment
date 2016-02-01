@@ -1,24 +1,28 @@
-<?php 
+<?php
 require_once('db_connection.php');
+
+// get key from the url
+// if the url has a 'key', it means user has forgotten the password and wants to change it
 try {
     $key = $_GET['key'];
-    if(!$_SESSION['key']) {
+    if(!isset($_SESSION['key'])) {
         $_SESSION['key'] = $key;
     }
 }
 catch (Exception $ex) {}
 
-// check if the user is signed in
 if ($_SESSION['id'] || $_SESSION['key']) {
     
-    if(!$_SESSION['key']) {
+    // if the session doesn't have a 'key', it means user has not forgotten the password and wants to change it
+    if(!isset($_SESSION['key'])) {
         $userId = $_SESSION['id'];
         $name = $_SESSION['name'];
     }
+
     // check if the user has submitted the form
-    if ($_POST['submit']) {
-        // fetch form details  from $_POST
-        if(!$_SESSION['key']) {
+    if (isset($_POST['submit'])) {
+        // fetch details from $_POST
+        if (!isset($_SESSION['key'])) {
             $password = mysqli_real_escape_string($connection, trim($_POST['password']));
         }
         $newPassword = mysqli_real_escape_string($connection, trim($_POST['newPassword']));
@@ -35,12 +39,13 @@ if ($_SESSION['id'] || $_SESSION['key']) {
             $i++;
         } 
         // check if new password and repeat new password fields contain the same value
-        if($newPassword != $rNewPassword) {
+        if ($newPassword != $rNewPassword) {
             $errors[$i] = "Passwords entered in the 'Password' and 'Re-enter Password' fields donot match";
             $i++;
         }
 
-        if(!$_SESSION['key']) {
+        // backup passwords to be used if the user has made errors and the password fields need to be repopulated
+        if (!isset($_SESSION['key'])) {
             $passwordBackup = $password;
             $password = md5($password);
         }
@@ -50,16 +55,17 @@ if ($_SESSION['id'] || $_SESSION['key']) {
         $newPassword = md5($newPassword);
         $rNewPassword = md5($rNewPassword);
 
-        if(!$_SESSION['key']) {
+        if (!isset($_SESSION['key'])) {
+            
             // fetch old password from the database
             $query = mysqli_query($connection, "SELECT password 
-                                FROM details 
-                                WHERE id = '$userId'");
+                                                FROM details 
+                                                WHERE id = '$userId'");
             if ($query and $row = mysqli_fetch_assoc($query)) {
                 $opassword = $row['password'];
 
-                    // check if the password matches with the old password
-                    if($password != $opassword) {
+                // check if the password matches with the old password
+                if ($password != $opassword) {
                     $errors[$i] = "The old password you entered is invalid";
                     $i++;
                 }
@@ -68,32 +74,37 @@ if ($_SESSION['id'] || $_SESSION['key']) {
 
         // if no errors exists then update the new password and redirect to users home page
         if (!$errors) { 
-            if(!$_SESSION['key']) {
-                $query = mysqli_query($connection, "UPDATE details SET password = '$newPassword'
-                        WHERE id = $userId");
+            if(!isset($_SESSION['key'])) {
+                $query = mysqli_query($connection, "UPDATE details 
+                                                    SET password = '$newPassword'
+                                                    WHERE id = $userId");
                 if($query) {
                     $_SESSION['message'] = "Your password was changed successfully";
                     header("Location: home.php");
                 }
+                else {
+                    $_SESSION['message'] = "Unable to change your password!<br>Please try again.";
+                    header("Location: index.php");
+                }
             }
             else {
                 $activation_key = $_SESSION['key'];
-                $query = mysqli_query($connection, "UPDATE details SET password = '$newPassword'
-                        WHERE activation_key = '$activation_key'");
+                $query = mysqli_query($connection, "UPDATE details 
+                                                    SET password = '$newPassword'
+                                                    WHERE activation_key = '$activation_key'");
                 if($query) {
                     $_SESSION['message'] = "Your password was changed successfully";
                     header("Location: index.php");
                 }
-                else
-                {
+                else {
                     $_SESSION['message'] = "Unable to change your password!<br>Please try again.";
                     header("Location: index.php");
                 }
             }
         }
     }
-    if ($_POST['cancel']) {
-        if(!$_SESSION['key']) {
+    if (isset($_POST['cancel'])) {
+        if(!isset($_SESSION['key'])) {
             header("Location: home.php");
         }
         else {
@@ -107,7 +118,7 @@ else
 }
 ?>
     <body>
-        <?php if (!$_SESSION['key']) { ?>
+        <?php if (!isset($_SESSION['key'])) { ?>
         <nav class="navbar navbar-inverse" data-spy="affix">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -117,7 +128,7 @@ else
                         <span class="icon-bar"></span> 
                     </button>
                     <a class="navbar-brand" href="home.php">
-                        <?php if (!$_SESSION['key']) {echo htmlentities($name);} ?>
+                        <?php if (!isset($_SESSION['key']) { echo htmlentities($name); } ?>
                     </a> 
                 </div>
                 <div>
@@ -144,29 +155,15 @@ else
                 <div class="col-md-4">
                     <div class="row">
                         <div class="col-md-12">
-                            <div id="message" class="jumbotron">
-                                <?php
-                                if ($errors) {
-                                    foreach($errors as $e => $e_value) {
-                                        echo "<label class='myLabel'>" . $e_value . "</label>";
-                                        echo "<br>";
-                                    }
-                                    echo '<style type="text/css">
-                                    #message { 
-                                        display: block; 
-                                    }
-                                    </style>';
+                            <?php
+                            if ($errors) {
+                                echo '<div id="message" class="jumbotron visibleDiv">';
+                                foreach($errors as $e => $e_value) {
+                                    echo '<label class="myLabel">' . $e_value . '</label><br>';
                                 }
-                                // if errors doesnot exist then hide the div
-                                else {
-                                    echo '<style type="text/css">
-                                    #message { 
-                                        display: none; 
-                                    }
-                                    </style>';
-                                }
-                                ?>
-                            </div>
+                                echo '</div>';
+                            }
+                            ?>
                         </div>
                     </div> <!-- end of message div -->
 
@@ -175,7 +172,7 @@ else
                             <div class="col-md-12"> 
                                 <div id="loginForm" class="jumbotron">
                                     <div class="form-group">
-                                        <?php if (!$_SESSION['key']) { ?>
+                                        <?php if (!isset($_SESSION['key'])) { ?>
                                         <label class="myLabel">Old Password</label>
                                         <input name="password" type="password" class="form-control" id="password" value='<?php echo htmlentities($passwordBackup) ?>'><br>
                                         <?php } ?>

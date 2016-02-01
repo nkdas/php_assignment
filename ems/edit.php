@@ -1,22 +1,24 @@
- <?php 
+ <?php
 require_once('db_connection.php');
-require('set_post_data.php');
+require('set_data.php');
 require('validate.php');
 require('db_functions.php');
 
-// variable to store the file name of the photo
-if (!$_SESSION['photo']) {
-    $photo = "";    
+// check if photo's file name is present in the session
+if (!isset($_SESSION['photo'])) {
+    $photo = "";
 }
+
 // if the user has submitted the form
-if ($_POST['update']) {   
+if (isset($_POST['update'])) {
     $userId = $_SESSION['id'];
+    
     // set the submitted data to the array $row
-    $row = set_post_data($_POST, $_FILES, $connection);
+    $row = set_data($_POST, $_FILES, $connection);
     // validate $row
     $errors = validate($row, $connection, "update");
 
-    // if no error exists from the user side after validation then update the details of the user
+    // if no error exists after validation then update the details of the user
     if (!$errors) { 
         $status = update_record($userId, $connection, $row);
         if($status == 1) {
@@ -34,6 +36,8 @@ else {
     if ($_SESSION['id']) {
         $userId = $_SESSION['id'];
         $row = get_record_for_updation($userId, $connection);
+        // set session to store the name of the photo so that we can have the photo during resubmission 
+        // (in case of validation errors)
         $_SESSION['photo'] = $row['photo'];
     }
     else {
@@ -66,37 +70,19 @@ else {
             </div>
         </div>
     </nav>
-    <form id="section1" class="form" enctype="multipart/form-data" onsubmit="return validate('edit');" action="edit.php"  method="post">
+    <form class="form" action="edit.php" enctype="multipart/form-data" method="post">
         <div id="section1" class="container-fluid">
-            <!-- this div is used to display messages to the user -->
             <div class="row">
-                <div class="col-md-12">
-                    <div id="message" class="jumbotron">
-                        <?php
-
-                        // if error exists then show the div and the errors
-                        if ($errors) {
-                            echo "<br><label class='myLabel'>Please Fix the following errors: </label><br>";
-                            foreach($errors as $e => $e_value) {
-                                echo "<label class='myLabel'>" . $e_value . "</label>";
-                                echo "<br>";
-                            }
-                            echo '<style type="text/css">
-                            #message { 
-                                display: block; 
-                            }
-                            </style>';
+                <div class="col-md-12 message">
+                    <?php
+                    if ($errors) {
+                        echo '<div id="message" class="jumbotron visibleDiv"><br>';
+                        foreach($errors as $e => $e_value) {
+                            echo '<label class="myLabel">' . $e_value . '</label><br>';
                         }
-                        // if error doesnot exists then hide the div
-                        else {
-                            echo '<style type="text/css">
-                            #message { 
-                                display: none; 
-                            }
-                            </style>';
-                        }
-                        ?>
-                    </div>
+                        echo '</div>';
+                    }
+                    ?>
                 </div>
             </div>
             <h1>Basic Information</h1>
@@ -113,7 +99,7 @@ else {
                     <div class="row"> <!-- New row for the name -->
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <input name="firstname" type="text" class="form-control" id="firstname" placeholder="First name" value="<?php echo htmlentities($row['firstname']); ?>">
+                                <input name="firstname" type="text" class="form-control required" id="firstname" placeholder="First name" value="<?php echo htmlentities($row['firstname']); ?>">
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -123,7 +109,7 @@ else {
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <input name="lastname" type="text" class="form-control" id="lastname" placeholder="Last name" value="<?php echo htmlentities($row['lastname']); ?>">
+                                <input name="lastname" type="text" class="form-control required" id="lastname" placeholder="Last name" value="<?php echo htmlentities($row['lastname']); ?>">
                             </div>
                         </div>
                     </div> <!-- Row ends -->
@@ -145,7 +131,7 @@ else {
                             <div class="form-group">
                                 <label class="myLabel">Date of Birth:</label>
                                 <div class="form-group date">
-                                    <input name="datePicker" type="date" class="form-control" id="datePicker" placeholder="mm/dd/yyyy" value="<?php echo $row['dob']; ?>">
+                                    <input name="datePicker" type="date" class="form-control required" id="datePicker" placeholder="mm/dd/yyyy" value="<?php echo $row['dob']; ?>">
                                 </div>
                             </div>
                         </div>
@@ -173,15 +159,15 @@ else {
                             </div>
                         </div>
                         <div class="col-md-4">
+                            <label class="myLabel">Employer:</label>
                             <div class="form-group">
-                                <label class="myLabel">Employer:</label>
-                                <input name="employer" type="text" class="form-control" id="employer" value="<?php echo htmlentities($row['employer']); ?>">
+                                <input name="employer" type="text" class="form-control required" id="employer" value="<?php echo htmlentities($row['employer']); ?>">
                             </div>
                         </div>
                         <div class="col-sm-4">
+                            <label class="myLabel">Email:</label>
                             <div class="form-group">
-                                <label class="myLabel">Email:</label>
-                                <input name="email" type="text" class="form-control" id="email" placeholder="someone@example.com" value="<?php echo htmlentities($row['email']); ?>">
+                                <input name="email" type="text" class="form-control required" id="email" placeholder="someone@example.com" value="<?php echo htmlentities($row['email']); ?>">
                             </div>
                         </div>
                     </div> <!-- Row ends -->
@@ -210,22 +196,22 @@ else {
             <div class="row"> <!-- Create input fields -->
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <input name="street" type="text" class="form-control" id="street" placeholder="Street" value="<?php echo htmlentities($row['street']); ?>">
+                        <input name="street" type="text" class="form-control required" id="street" placeholder="Street" value="<?php echo htmlentities($row['street']); ?>">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <input name="city" type="text" class="form-control" id="city" placeholder="City" value="<?php echo htmlentities($row['city']); ?>">
+                        <input name="city" type="text" class="form-control required" id="city" placeholder="City" value="<?php echo htmlentities($row['city']); ?>">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <input name="state" type="text" class="form-control" id="state" placeholder="State" value="<?php echo htmlentities($row['state']); ?>">
+                        <input name="state" type="text" class="form-control required" id="state" placeholder="State" value="<?php echo htmlentities($row['state']); ?>">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <input name="zip" type="text" class="form-control" id="zip" placeholder="Zip" value="<?php echo htmlentities($row['zip']); ?>">
+                        <input name="zip" type="text" class="form-control required" id="zip" placeholder="Zip" value="<?php echo htmlentities($row['zip']); ?>">
                     </div>
                 </div>
             </div>
@@ -238,12 +224,12 @@ else {
             <div class="row"> <!-- Create input fields -->
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <input name="telephone" type="text" class="form-control" id="telephone" placeholder="Telephone" value="<?php echo htmlentities($row['telephone']); ?>">
+                        <input name="telephone" type="text" class="form-control required" id="telephone" placeholder="Telephone" value="<?php echo htmlentities($row['telephone']); ?>">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <input name="mobile" type="text" class="form-control" id="mobile" placeholder="Mobile" value="<?php echo htmlentities($row['mobile']); ?>">
+                        <input name="mobile" type="text" class="form-control required" id="mobile" placeholder="Mobile" value="<?php echo htmlentities($row['mobile']); ?>">
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -347,7 +333,7 @@ else {
         <div id="section5" class="container-fluid">
             <div class="row"> <!-- Create input fields -->
                 <div class="col-sm-12">
-                    <input name="update" type="submit" class="btn btn-default" value="Update">
+                    <input name="update" type="submit" class="btn btn-default submit-button" value="Update">
                 </div>
             </div>
         </div>

@@ -1,5 +1,4 @@
 <?php
-
 // function to insert a record while registration
 function insert_record($record, $connection) {
 	// prepare statement
@@ -7,7 +6,7 @@ function insert_record($record, $connection) {
 		"INSERT INTO details (username, password, firstname, middlename, lastname, suffix, gender, dob, marital, employement, 
 			employer, email, street, city, state, zip, telephone, mobile, fax, ostreet, ocity, ostate, ozip, otelephone, 
 			omobile, ofax, emailcheck, messagecheck, phonecheck, anycheck, more, photo)
-	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 	);
 
 	if($statement) {

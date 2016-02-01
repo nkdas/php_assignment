@@ -1,16 +1,16 @@
- <?php 
+<?php 
 require_once('db_connection.php');
 
 // this variable acts as a flag to determine if user details are retrieved successfully from the database
 // and weather to show the home page or not
 $pass = 0;
-if ($_SESSION['message']) {
+if (isset($_SESSION['message'])) {
     $message = $_SESSION['message'];
     $_SESSION['message'] = null;
 }
 
-// checks user login
-if ($_SESSION['id']) {
+// check if user is signed in
+if (isset($_SESSION['id'])) {
     $userId = $_SESSION['id'];
 
     // fetch user details from the database
@@ -50,7 +50,6 @@ else {
                     <ul class="nav navbar-nav">
                         <li><a href="edit.php">Edit profile</a></li>
                         <li><a href="change_password.php">Change password</a></li>
-                    <!--    <li><a href="delete.php">Delete my profile</a></li> -->
                         <li><a href="logout.php">Sign out</a></li>
                     </ul>
                 </div>
@@ -61,28 +60,16 @@ else {
         <!-- This div is used to display messages to the user -->
         <div class="row">
             <div class="col-md-12">
-                <div id="message" class="jumbotron">
-                    <?php
-                    // if message exit then show the div and the message
+                <?php
                     if ($message) {
-                        echo "<label class='myLabel'>$message</label>";
-                        echo '<style type="text/css">
-                        #message { 
-                            display: block;
+                        echo '<div id="message" class="jumbotron visibleDiv">';
+                        echo '<label class="myLabel">'.$message.'</label></div>';
+                        if (!$_SESSION['id']) {
+                            session_unset();
+                            session_destroy();
                         }
-                        </style>';
                     }
-
-                    // if message doesnot exit then hide the div
-                    else {
-                        echo '<style type="text/css">
-                        #message { 
-                            display: none; 
-                        }
-                        </style>';
-                    }
-                    ?>
-                </div>
+                ?>
             </div>
         </div> <!-- row ends -->
 
@@ -95,7 +82,7 @@ else {
                 <div id="homeBgDiv">
                     <div class="row">
                         <div class="col-md-6">    
-                            <h3 id="homeh31" class="homeh31">Basic information</h3>
+                            <h3 id="homeHeading" class="homeHeading">Basic information</h3>
                             
                             <div class="row"> <!-- Name -->
                                 <div class="col-sm-4">
@@ -189,7 +176,7 @@ else {
 
                     <div class="row">
                         <div class="col-md-6">       
-                            <h3 class="homeh31">Residence details</h3>
+                            <h3 class="homeHeading">Residence details</h3>
                             <div class="row"> <!-- Street -->
                                 <div class="col-sm-4">
                                     <label class="myLabel">Street:</label>
@@ -269,7 +256,7 @@ else {
                         </div>
 
                         <div class="col-md-6"> 
-                            <h3 class="homeh31">Office details</h3>
+                            <h3 class="homeHeading">Office details</h3>
                             <div class="row"> <!-- Street -->
                                 <div class="col-sm-4">
                                     <label class="myLabel">Street:</label>

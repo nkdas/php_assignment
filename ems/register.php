@@ -1,36 +1,39 @@
 <?php
 require_once('db_connection.php');
-require('set_post_data.php');
+require('set_data.php');
 require('validate.php');
 require('db_functions.php');
 
-// $photo to store image file name
-if (!$_SESSION['photo']) {
-    $photo = "";    
+// check if photo's file name is present in the session
+if (!isset($_SESSION['photo'])) {
+    $photo = "";
 }
-// if the form is submitted
-if ($_POST['submit']) {
+
+// if the user has submitted the form
+if (isset($_POST['submit'])) {
+    
     // set submitted data to an array $record
-    $record = set_post_data($_POST, $_FILES, $connection);
+    $record = set_data($_POST, $_FILES, $connection);
+    
     // set session to store the name of the photo so that we can have the photo during resubmission 
     // (in case of validation errors)
     $_SESSION['photo'] = $record['photo'];
+    
     // validate data in $record
     $errors = validate($record, $connection, "register");
     
+    // if no error exists after validation then encrypt the passwords and
+    // enter the details to the database.
     if (!$errors) { 
-        // encrypt the password
         $record['password'] = md5($record['password']);
-        // insert data into the database
-    	$status = insert_record($record, $connection);
+        $status = insert_record($record, $connection);
         if ($status == 1) {
             header("Location: mail.php");
         }
         else {
             $errors .= $status;
         }
-    }
-    
+    }  
 }
 ?>
 
@@ -60,51 +63,24 @@ if ($_POST['submit']) {
             </div>
         </div>
     </nav>
-   
-    <!-- Registration form -->
-<<<<<<< HEAD
-    <form id="section1" name="form" class="form" enctype="multipart/form-data" action="register.php" onsubmit="return validate('register');" method="post">
-=======
-    <form id="section1" class="form" enctype="multipart/form-data" action="register.php" method="post">
->>>>>>> 31d8f3c8993cf33afb6207eb8b431cf60d969658
+    <form name="form" class="form" enctype="multipart/form-data" action="register.php" method="post">
         <div id="section1" class="container-fluid">
-
-            <!-- This div is used to display messages to the user -->
             <div class="row">
                 <div class="col-md-12">
-                    <div id="message" class="jumbotron">
+                    <div class="col-md-12 message">
                         <?php
-
-                        // if errors exit then show the div and the errors
                         if ($errors) {
-                            echo "<br><label class='myLabel'>Please Fix the following errors:</label><br>";
+                            echo '<div id="message" class="jumbotron visibleDiv"><br>';
                             foreach($errors as $e => $e_value) {
-                                echo "<label class='myLabel'>" . $e_value . "</label>"; 
-                                echo "<br>";
+                                echo '<label class="myLabel">' . $e_value . '</label><br>';
                             }
-                            echo '<style type="text/css">
-
-                            #message { 
-                                display: block;
-                            }
-                            </style>';
-                        }
-
-                         // if errors doesnot exit then hide the div
-                        else {
-                            echo '<style type="text/css">
-                            #message { 
-                                display: none; 
-                            }
-                            </style>';
+                            echo '</div>';
                         }
                         ?>
                     </div>
                 </div>
             </div>
-
             <h1>Basic Information</h1>
-            
             <div class="row">
                 <div class="col-md-3">
                     <label class="myLabel">Profile photo:</label>
@@ -117,32 +93,28 @@ if ($_POST['submit']) {
                         <div class="col-sm-4">
                             <label class="myLabel">Username:</label>
                             <div class="form-group">
-                                <input name="username" type="text" class="form-control" id="username" value="<?php echo $record['username']; ?>">
+                                <input name="username" type="text" class="form-control required" id="username" value="<?php echo $record['username']; ?>">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <label class="myLabel">Password:</label>
                             <div class="form-group">
-                                <input name="password" type="password" class="form-control" id="password" value="<?php echo $record['password']; ?>">
+                                <input name="password" type="password" class="form-control required" id="password" value="<?php echo $record['password']; ?>">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <label class="myLabel">Re-enter Password:</label>
                             <div class="form-group">
-                                <input name="rpassword" type="password" class="form-control" id="rpassword" value="<?php echo $record['rpassword']; ?>">
+                                <input name="rpassword" type="password" class="form-control required" id="rpassword" value="<?php echo $record['rpassword']; ?>">
                             </div>
                         </div>
                     </div> <!-- Row ends -->
 
                     <label class="myLabel">Name:</label>
-<<<<<<< HEAD
-=======
-                    
->>>>>>> 31d8f3c8993cf33afb6207eb8b431cf60d969658
                     <div class="row"> <!-- Name -->
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <input name="firstname" type="text" class="form-control" id="firstname" placeholder="First name" value="<?php echo $record['firstname']; ?>">
+                                <input name="firstname" type="text" class="form-control required" id="firstname" placeholder="First name" value="<?php echo $record['firstname']; ?>">
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -152,7 +124,7 @@ if ($_POST['submit']) {
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <input name="lastname" type="text" class="form-control" id="lastname" placeholder="Last name" value="<?php echo $record['lastname']; ?>">
+                                <input name="lastname" type="text" class="form-control required" id="lastname" placeholder="Last name" value="<?php echo $record['lastname']; ?>">
                             </div>
                         </div>
                     </div> <!-- Row ends -->
@@ -173,8 +145,8 @@ if ($_POST['submit']) {
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="myLabel">Date of Birth:</label>
-                                <div class="form-group date">
-                                    <input name="datePicker" type="date" class="form-control" id="datePicker" placeholder="mm/dd/yyyy" value="<?php echo $record['dob']; ?>">
+                                <div class="form-group">
+                                    <input name="datePicker" type="date" class="form-control required" id="datePicker" placeholder="mm/dd/yyyy" value="<?php echo $record['dob']; ?>">
                                 </div>
                             </div>
                         </div>
@@ -202,15 +174,15 @@ if ($_POST['submit']) {
                             </div>
                         </div>
                         <div class="col-md-4">
+                            <label class="myLabel">Employer:</label>
                             <div class="form-group">
-                                <label class="myLabel">Employer:</label>
-                                <input name="employer" type="text" class="form-control" id="employer" value="<?php echo $record['employer']; ?>">
+                                <input name="employer" type="text" class="form-control required" id="employer" value="<?php echo $record['employer']; ?>">
                             </div>
                         </div>
                         <div class="col-sm-4">
+                            <label class="myLabel">Email:</label>
                             <div class="form-group">
-                                <label class="myLabel">Email:</label>
-                                <input name="email" type="text" class="form-control" id="email" placeholder="someone@example.com" value="<?php echo $record['email']; ?>">
+                                <input name="email" type="text" class="form-control required" id="email" placeholder="someone@example.com" value="<?php echo $record['email']; ?>">
                             </div>
                         </div>
                     </div> <!-- Row ends -->
@@ -219,13 +191,8 @@ if ($_POST['submit']) {
                         <div class="col-md-12">
                             <div class="radio">
                                 <label id="genderLabel">Gender:</label>&nbsp;&nbsp;
-<<<<<<< HEAD
                                 <label><input id="male" type="radio" name="genderRadio" value="1" <?php if($record['gender'] == "1") {echo "checked";} ?> >Male</label>&nbsp;&nbsp;
                                 <label><input id="female" type="radio" name="genderRadio" value="2" <?php if($record['gender'] == "2") {echo "checked";} ?> >Female</label>
-=======
-                                <label><input type="radio" name="genderRadio" value="1" <?php if($record['gender'] == "1") {echo "checked";} ?> >Male</label>&nbsp;&nbsp;
-                                <label><input type="radio" name="genderRadio" value="2" <?php if($record['gender'] == "2") {echo "checked";} ?> >Female</label>
->>>>>>> 31d8f3c8993cf33afb6207eb8b431cf60d969658
                             </div>
                         </div>
                     </div> <!-- Row ends -->
@@ -244,22 +211,22 @@ if ($_POST['submit']) {
             <div class="row"> <!-- Create input fields -->
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <input name="street" type="text" class="form-control" id="street" placeholder="Street" value="<?php echo $record['street']; ?>">
+                        <input name="street" type="text" class="form-control required" id="street" placeholder="Street" value="<?php echo $record['street']; ?>">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <input name="city" type="text" class="form-control" id="city" placeholder="City" value="<?php echo $record['city']; ?>">
+                        <input name="city" type="text" class="form-control required" id="city" placeholder="City" value="<?php echo $record['city']; ?>">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <input name="state" type="text" class="form-control" id="state" placeholder="State" value="<?php echo $record['state']; ?>">
+                        <input name="state" type="text" class="form-control required" id="state" placeholder="State" value="<?php echo $record['state']; ?>">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <input name="zip" type="text" class="form-control" id="zip" placeholder="Zip" value="<?php echo $record['zip']; ?>">
+                        <input name="zip" type="text" class="form-control required" id="zip" placeholder="Zip" value="<?php echo $record['zip']; ?>">
                     </div>
                 </div>
             </div>
@@ -272,12 +239,12 @@ if ($_POST['submit']) {
             <div class="row"> <!-- Create input fields -->
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <input name="telephone" type="text" class="form-control" id="telephone" placeholder="Telephone" value="<?php echo $record['telephone']; ?>">
+                        <input name="telephone" type="text" class="form-control required" id="telephone" placeholder="Telephone" value="<?php echo $record['telephone']; ?>">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <input name="mobile" type="text" class="form-control" id="mobile" placeholder="Mobile" value="<?php echo $record['mobile']; ?>">
+                        <input name="mobile" type="text" class="form-control required" id="mobile" placeholder="Mobile" value="<?php echo $record['mobile']; ?>">
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -381,7 +348,7 @@ if ($_POST['submit']) {
         <div id="section5" class="container-fluid">
             <div class="row"> <!-- Create input fields -->
                 <div class="col-sm-12">
-                    <input name="submit" type="submit" class="btn btn-default" value="submit">
+                    <input name="submit" type="submit" class="btn btn-default submit-button" value="submit">
                 </div>
             </div>
         </div>

@@ -2,12 +2,12 @@
 session_start();
 require 'PHPMailerAutoload.php';
 
-// email credentials (change these if you need to use your own email id)
+// email credentials (change these if you need to use another own email id)
 $username = "neerajkumardas7@gmail.com";
 $password = "@pp1e@pp1e";
 
 // check if a user is signed in
-if ($_SESSION['id']) {
+if (isset($_SESSION['id'])) {
 
 	$mail = new PHPMailer();
 	$mail->IsSMTP();
