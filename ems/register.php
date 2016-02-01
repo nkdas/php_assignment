@@ -94,7 +94,7 @@ if (isset($_POST['submit'])) {
                         <div class="col-sm-4">
                             <label class="myLabel">Username:</label>
                             <div class="form-group">
-                                <input name="username" type="text" class="form-control required" id="username" value="<?php echo $record['username']; ?>">
+                                <input name="username" type="text" class="form-control unique" id="username" value="<?php echo $record['username']; ?>">
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -183,7 +183,7 @@ if (isset($_POST['submit'])) {
                         <div class="col-sm-4">
                             <label class="myLabel">Email:</label>
                             <div class="form-group">
-                                <input name="email" type="text" class="form-control required" id="email" placeholder="someone@example.com" value="<?php echo $record['email']; ?>">
+                                <input name="email" type="text" class="form-control unique" id="email" placeholder="someone@example.com" value="<?php echo $record['email']; ?>">
                             </div>
                         </div>
                     </div> <!-- Row ends -->

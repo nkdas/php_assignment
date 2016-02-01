@@ -168,7 +168,7 @@ else {
                         <div class="col-sm-4">
                             <label class="myLabel">Email:</label>
                             <div class="form-group">
-                                <input name="email" type="text" class="form-control required" id="email" placeholder="someone@example.com" value="<?php echo htmlentities($row['email']); ?>">
+                                <input name="email" type="text" class="form-control unique edit" id="email" placeholder="someone@example.com" value="<?php echo htmlentities($row['email']); ?>">
                             </div>
                         </div>
                     </div> <!-- Row ends -->
