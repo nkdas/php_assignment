@@ -3,6 +3,7 @@ $("document").ready(function(){
 	$("#signin").click(function(){
 		$("#progress").removeClass("hiddenDiv");
 		$("#progress").addClass("visibleDiv");
+		disableButton("#signin");
 		var errors = "";
 		if ($('#username').val() == "") {
 			errors += "<label class='myLabel'>Username cannot be blank</label><br>";
@@ -40,6 +41,7 @@ $("document").ready(function(){
 		}
 		$(".progress").removeClass("visibleDiv");
 		$(".progress").addClass("hiddenDiv");
+		enableButton("#signin");
 	});
 
 	function showErrors(errors) {

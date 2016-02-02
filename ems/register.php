@@ -42,7 +42,7 @@ if (isset($_POST['submit'])) {
 require('header.php');
 ?>
 
-<body data-spy="scroll" data-target=".navbar" data-offset="50">
+<body onload="enableButton('.submit-button')" data-spy="scroll" data-target=".navbar" data-offset="50">
     <!-- Navigation bar -->
     <nav class="navbar navbar-inverse" data-spy="affix" >
         <div class="container-fluid">

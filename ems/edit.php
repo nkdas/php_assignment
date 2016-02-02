@@ -51,7 +51,7 @@ else {
 require('header.php');
 ?>
 
-<body data-spy="scroll" data-target=".navbar">
+<body onload="enableButton('.submit-button')" data-spy="scroll" data-target=".navbar">
     <nav class="navbar navbar-inverse" data-spy="affix" >
         <div class="container-fluid">
             <div class="navbar-header">
