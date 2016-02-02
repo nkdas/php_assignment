@@ -1,6 +1,10 @@
-<?php 
+<?php
+/**
+* This page helps a user if he/she has forgot his/her password.
+* It asks the user for username and emailId, matches them with the database and sends a link to change the password
+*/
+
 require_once('db_connection.php');
-require('header.php');
 
 // variable to store messages
 $message = '';
@@ -13,12 +17,12 @@ else
 {
     // check if the user has submitted the form
     if (isset($_POST['submit'])) {
-        
+
         // check if the user has entered all the details
-        if (!isset($_POST['username'])) {
+        if (!$_POST['username']) {
             $message = "Please enter your username<br>";
         }
-        if (!isset($_POST['email'])) {
+        if (!$_POST['email']) {
             $message = $message . "Please enter your email";
         }
         if (!$message) {
@@ -55,12 +59,12 @@ else
 if (isset($_POST['cancel'])) {
     header("Location: index.php");
 }
+require('header.php');
 ?>
 
     <body>
         <section id="section1" class="container">
-
-            <div class="row">              
+            <div class="row">
                 <div class="col-md-8">
                     <h1 id="mainHeader">EMS</h1>
                     <h3>Password Recovery</h3>
@@ -73,6 +77,7 @@ if (isset($_POST['cancel'])) {
                     <div class="row">
                         <div class="col-md-12">
                             <?php
+                            // creating a div to show messages
                                 if ($message) {
                                     echo '<div id="message" class="jumbotron visibleDiv">';
                                     echo '<label class="myLabel">'.$message.'</label></div>';
@@ -99,9 +104,9 @@ if (isset($_POST['cancel'])) {
                                 </div>
                             </div>
                         </div>
-                    </form>            
+                    </form>
                 </div>
-            </div>           
+            </div>
         </section>
     </body>
 <?php require('footer.php'); ?>

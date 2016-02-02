@@ -1,4 +1,8 @@
 <?php
+/**
+* This page is used to send mails.
+*/
+
 session_start();
 require 'PHPMailerAutoload.php';
 

@@ -1,4 +1,9 @@
 <?php
+/**
+* This page takes user credentials and checks with the database if the credentials are true,
+* If true it sets sessions for the user and returns 1 as authentication success to the ajax call.
+*/
+
 require_once('db_connection.php');
 
 // fetch username and password from $_POST

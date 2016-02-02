@@ -1,7 +1,14 @@
 <?php
-// $post will contain an array of data submitted by the user that are present in $_POST
-// $files will contain an array of data submitted by the user that are present in $_FILES
-// $connectio will store the database connection
+/**
+* This page fetches data from the $_POST and sets them to their respective variables
+*/
+
+/**
+* $post will contain an array of data submitted by the user that are present in $_POST
+* $files will contain an array of data submitted by the user that are present in $_FILES
+* $connectio will store the database connection
+*/
+
 function set_data($post, $files, $connection) {
 	// set data for $photo
 	try
@@ -113,7 +120,6 @@ function set_data($post, $files, $connection) {
 		$record['photo'] = $photo;
 	}
 	catch (Exception $ex){}
-
 	return $record;
 }
 ?>

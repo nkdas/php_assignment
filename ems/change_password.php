@@ -1,6 +1,9 @@
 <?php
+/**
+* This page helps users in changing their passwords.
+*/
+
 require_once('db_connection.php');
-require('header.php');
 
 // get key from the url
 // if the url has a 'key', it means user has forgotten the password and wants to change it
@@ -28,11 +31,11 @@ if ($_SESSION['id'] || $_SESSION['key']) {
         }
         $newPassword = mysqli_real_escape_string($connection, trim($_POST['newPassword']));
         $rNewPassword = mysqli_real_escape_string($connection, trim($_POST['rNewPassword']));
-          
+
         // array to store the errors
-        $errors = array(); 
+        $errors = array();
         //i serves as the key or index to the array errors.
-        $i = 1; 
+        $i = 1;
 
         // check if the new password meets length requirements
         if (strlen($newPassword) < 6) {
@@ -57,9 +60,9 @@ if ($_SESSION['id'] || $_SESSION['key']) {
         $rNewPassword = md5($rNewPassword);
 
         if (!isset($_SESSION['key'])) {
-            
+
             // fetch old password from the database
-            $query = mysqli_query($connection, "SELECT password 
+            $query = mysqli_query($connection, "SELECT password
                                                 FROM details 
                                                 WHERE id = '$userId'");
             if ($query and $row = mysqli_fetch_assoc($query)) {
@@ -104,6 +107,7 @@ if ($_SESSION['id'] || $_SESSION['key']) {
             }
         }
     }
+
     if (isset($_POST['cancel'])) {
         if(!isset($_SESSION['key'])) {
             header("Location: home.php");
@@ -117,19 +121,20 @@ else
 {
     header("Location: index.php");
 }
+require('header.php');
 ?>
     <body>
         <?php if (!isset($_SESSION['key'])) { ?>
         <nav class="navbar navbar-inverse" data-spy="affix">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#homeNavbar"> 
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#homeNavbar">
                         <span class="icon-bar"></span> 
                         <span class="icon-bar"></span> 
                         <span class="icon-bar"></span> 
                     </button>
                     <a class="navbar-brand" href="home.php">
-                        <?php if (!isset($_SESSION['key']) { echo htmlentities($name); } ?>
+                        <?php if (!isset($_SESSION['key'])) { echo htmlentities($name); } ?>
                     </a> 
                 </div>
                 <div>
@@ -145,9 +150,8 @@ else
         </nav>
         <?php } ?>
         <section id="section1" class="container-fluid">
-
-            <div class="row">  
-                <div class="col-md-1">            
+            <div class="row">
+                <div class="col-md-1">
                 </div>
                 <div class="col-md-6">
                     <h1 id="mainHeader">EMS</h1>
@@ -188,11 +192,11 @@ else
                                 </div>
                             </div>
                         </div>
-                    </form>            
+                    </form>
                 </div>
-                <div class="col-md-1">            
+                <div class="col-md-1">
                 </div>
-            </div>           
+            </div>
         </section>
     </body>
 <?php require('footer.php'); ?>

@@ -1,4 +1,8 @@
 <?php
+/**
+* This page activates a registered user by matching the ID and Key from url with the once in the database 
+* and sets the activation field in the database to 1 thereby activating the user.
+*/
 require_once('db_connection.php');
 
 // get user id and activation key from the the url

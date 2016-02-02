@@ -1,6 +1,9 @@
- <?php
+<?php
+/**
+* This page serves as the edit page for the users profile.
+*/
+
 require_once('db_connection.php');
-require('header.php');
 require('set_data.php');
 require('validate.php');
 require('db_functions.php');
@@ -45,6 +48,7 @@ else {
         header("Location: index.php");
     }
 }
+require('header.php');
 ?>
 
 <body data-spy="scroll" data-target=".navbar">
@@ -97,7 +101,7 @@ else {
 
                     <label class="myLabel">Name:</label>
                     
-                    <div class="row"> <!-- New row for the name -->
+                    <div class="row"> <!-- Row starts -->
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <input name="firstname" type="text" class="form-control required" id="firstname" placeholder="First name" value="<?php echo htmlentities($row['firstname']); ?>">
@@ -148,7 +152,7 @@ else {
                         </div>
                     </div> <!-- Row ends -->
 
-                    <div class="row">
+                    <div class="row"> <!-- Row starts -->
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="myLabel">Employment:</label>
@@ -182,19 +186,18 @@ else {
                             </div>
                         </div>
                     </div> <!-- Row ends -->
-
                 </div>
             </div>
         </div>
 
         <div id="section2" class="container-fluid">
             <h1>Residence Details</h1>
-            <div class="row"> <!-- Create labels -->
+            <div class="row">
                 <div class="col-md-12">
                     <label class="myLabel">Address:</label>
                 </div>
             </div>
-            <div class="row"> <!-- Create input fields -->
+            <div class="row"> <!-- Row starts -->
                 <div class="col-sm-3">
                     <div class="form-group">
                         <input name="street" type="text" class="form-control required" id="street" placeholder="Street" value="<?php echo htmlentities($row['street']); ?>">
@@ -215,14 +218,14 @@ else {
                         <input name="zip" type="text" class="form-control required" id="zip" placeholder="Zip" value="<?php echo htmlentities($row['zip']); ?>">
                     </div>
                 </div>
-            </div>
+            </div> <!-- Row ends -->
             
-            <div class="row"> <!-- Create labels -->
+            <div class="row">
                 <div class="col-md-8">
                     <label class="myLabel">Contact:</label>
                 </div>
             </div>
-            <div class="row"> <!-- Create input fields -->
+            <div class="row"> <!-- Row starts -->
                 <div class="col-sm-3">
                     <div class="form-group">
                         <input name="telephone" type="text" class="form-control required" id="telephone" placeholder="Telephone" value="<?php echo htmlentities($row['telephone']); ?>">
@@ -238,16 +241,16 @@ else {
                         <input name="fax" type="text" class="form-control" id="fax" placeholder="Fax" value="<?php echo htmlentities($row['fax']); ?>">
                     </div>
                 </div>
-            </div>
+            </div> <!-- Row ends -->
         </div>
         <div id="section3" class="container-fluid">
             <h1>Office Details</h1>
-            <div class="row"> <!-- Create labels -->
+            <div class="row">
                 <div class="col-md-12">
                     <label class="myLabel">Address:</label>
                 </div>
             </div>
-            <div class="row"> <!-- Create input fields -->
+            <div class="row"> <!-- Row starts -->
                 <div class="col-sm-3">
                     <div class="form-group">
                         <input name="ostreet" type="text" class="form-control" id="ostreet" placeholder="Street" value="<?php echo htmlentities($row['ostreet']); ?>">
@@ -268,14 +271,14 @@ else {
                         <input name="ozip" type="text" class="form-control" id="ozip" placeholder="Zip" value="<?php echo htmlentities($row['ozip']); ?>">
                     </div>
                 </div>
-            </div>
+            </div> <!-- Row ends -->
             
-            <div class="row"> <!-- Create labels -->
+            <div class="row">
                 <div class="col-md-8">
                     <label class="myLabel">Contact:</label>
                 </div>
             </div>
-            <div class="row"> <!-- Create input fields -->
+            <div class="row"> <!-- Row starts -->
                 <div class="col-sm-3">
                     <div class="form-group">
                         <input name="otelephone" type="text" class="form-control" id="otelephone" placeholder="Telephone" value="<?php echo htmlentities($row['otelephone']); ?>">
@@ -291,20 +294,20 @@ else {
                         <input name="ofax" type="text" class="form-control" id="ofax" placeholder="Fax" value="<?php echo htmlentities($row['ofax']); ?>">
                     </div>
                 </div>
-            </div>
+            </div> <!-- Row ends -->
         </div>
         <div id="section4" class="container-fluid">
             <h1>Other Details</h1>
-                <div class="row"> <!-- Create labels -->
-                    <div class="col-md-8">
-                        <label class="myLabel">Prefered mode of communication:</label>
-                    </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <label class="myLabel">Prefered mode of communication:</label>
                 </div>
-                <div class="row"> <!-- Create input fields -->
-                    <div class="col-sm-3">
-                        <div class="checkbox">
-                            <label><input name="emailCheck" type="checkbox" value="1" <?php if($row['emailcheck'] == "1") {echo "checked";} ?> >Email</label>
-                        </div>
+            </div>
+            <div class="row"> <!-- Row starts -->
+                <div class="col-sm-3">
+                    <div class="checkbox">
+                        <label><input name="emailCheck" type="checkbox" value="1" <?php if($row['emailcheck'] == "1") {echo "checked";} ?> >Email</label>
+                    </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="checkbox">
@@ -321,8 +324,8 @@ else {
                         <label><input name="anyCheck" type="checkbox" value="1" <?php if($row['anycheck'] == "1") {echo "checked";} ?> >Any</label>
                     </div>
                 </div>
-            </div>
-            <div class="row"> <!-- Create input fields -->
+            </div> <!-- Row ends -->
+            <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label class="myLabel">More about you:</label>
@@ -332,7 +335,7 @@ else {
             </div>
         </div>
         <div id="section5" class="container-fluid">
-            <div class="row"> <!-- Create input fields -->
+            <div class="row">
                 <div class="col-sm-12">
                     <input name="update" type="submit" class="btn btn-default submit-button" value="Update">
                 </div>

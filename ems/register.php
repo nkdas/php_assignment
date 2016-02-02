@@ -1,6 +1,9 @@
 <?php
+/**
+* This page serves as the registration page for new users.
+*/
+
 require_once('db_connection.php');
-require('header.php');
 require('set_data.php');
 require('validate.php');
 require('db_functions.php');
@@ -36,10 +39,10 @@ if (isset($_POST['submit'])) {
         }
     }  
 }
+require('header.php');
 ?>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
-
     <!-- Navigation bar -->
     <nav class="navbar navbar-inverse" data-spy="affix" >
         <div class="container-fluid">
@@ -70,6 +73,7 @@ if (isset($_POST['submit'])) {
                 <div class="col-md-12">
                     <div class="col-md-12 message">
                         <?php
+                        // creating a div to show errors
                         if ($errors) {
                             echo '<div id="message" class="jumbotron visibleDiv"><br>';
                             foreach($errors as $e => $e_value) {
@@ -90,7 +94,7 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="col-md-9">
 
-                    <div class="row"> <!-- Username and password -->
+                    <div class="row"> <!-- Row starts -->
                         <div class="col-sm-4">
                             <label class="myLabel">Username:</label>
                             <div class="form-group">
@@ -112,7 +116,7 @@ if (isset($_POST['submit'])) {
                     </div> <!-- Row ends -->
 
                     <label class="myLabel">Name:</label>
-                    <div class="row"> <!-- Name -->
+                    <div class="row"> <!-- Row starts -->
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <input name="firstname" type="text" class="form-control required" id="firstname" placeholder="First name" value="<?php echo $record['firstname']; ?>">
@@ -130,7 +134,7 @@ if (isset($_POST['submit'])) {
                         </div>
                     </div> <!-- Row ends -->
                     
-                    <div class="row"> <!-- Suffix -->
+                    <div class="row"> <!-- Row starts -->
                         <div class="col-md-4">
                             <label class="myLabel">Suffix:</label>
                             <select name="suffixSelector" class="form-control" id="suffixSelector">
@@ -163,7 +167,7 @@ if (isset($_POST['submit'])) {
                         </div>
                     </div> <!-- Row ends -->
 
-                    <div class="row">
+                    <div class="row"> <!-- Row starts -->
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="myLabel">Employment:</label>
@@ -209,7 +213,7 @@ if (isset($_POST['submit'])) {
                     <label class="myLabel">Address:</label>
                 </div>
             </div>
-            <div class="row"> <!-- Create input fields -->
+            <div class="row"> <!-- Row starts -->
                 <div class="col-sm-3">
                     <div class="form-group">
                         <input name="street" type="text" class="form-control required" id="street" placeholder="Street" value="<?php echo $record['street']; ?>">
@@ -230,14 +234,14 @@ if (isset($_POST['submit'])) {
                         <input name="zip" type="text" class="form-control required" id="zip" placeholder="Zip" value="<?php echo $record['zip']; ?>">
                     </div>
                 </div>
-            </div>
+            </div> <!-- Row ends -->
             
             <div class="row"> <!-- Create labels -->
                 <div class="col-md-8">
                     <label class="myLabel">Contact:</label>
                 </div>
             </div>
-            <div class="row"> <!-- Create input fields -->
+            <div class="row"> <!-- Row starts -->
                 <div class="col-sm-3">
                     <div class="form-group">
                         <input name="telephone" type="text" class="form-control required" id="telephone" placeholder="Telephone" value="<?php echo $record['telephone']; ?>">
@@ -253,7 +257,7 @@ if (isset($_POST['submit'])) {
                         <input name="fax" type="text" class="form-control" id="fax" placeholder="Fax" value="<?php echo $record['fax']; ?>">
                     </div>
                 </div>
-            </div>
+            </div> <!-- Row ends -->
         </div>
         <div id="section3" class="container-fluid">
             <h1>Office Details</h1>
@@ -262,7 +266,7 @@ if (isset($_POST['submit'])) {
                     <label class="myLabel">Address:</label>
                 </div>
             </div>
-            <div class="row"> <!-- Create input fields -->
+            <div class="row"> <!-- Row starts -->
                 <div class="col-sm-3">
                     <div class="form-group">
                         <input name="ostreet" type="text" class="form-control" id="ostreet" placeholder="Street" value="<?php echo $record['ostreet']; ?>">
@@ -283,14 +287,14 @@ if (isset($_POST['submit'])) {
                         <input name="ozip" type="text" class="form-control" id="ozip" placeholder="Zip" value="<?php echo $record['ozip']; ?>">
                     </div>
                 </div>
-            </div>
+            </div> <!-- Row ends -->
             
             <div class="row"> <!-- Create labels -->
                 <div class="col-md-8">
                     <label class="myLabel">Contact:</label>
                 </div>
             </div>
-            <div class="row"> <!-- Create input fields -->
+            <div class="row"> <!-- Row starts -->
                 <div class="col-sm-3">
                     <div class="form-group">
                         <input name="otelephone" type="text" class="form-control" id="otelephone" placeholder="Telephone" value="<?php echo $record['otelephone']; ?>">
@@ -306,20 +310,20 @@ if (isset($_POST['submit'])) {
                         <input name="ofax" type="text" class="form-control" id="ofax" placeholder="Fax" value="<?php echo $record['ofax']; ?>">
                     </div>
                 </div>
-            </div>
+            </div> <!-- Row ends -->
         </div>
         <div id="section4" class="container-fluid">
             <h1>Other Details</h1>
-                <div class="row"> <!-- Create labels -->
-                    <div class="col-md-8">
-                        <label class="myLabel">Prefered mode of communication:</label>
-                    </div>
+            <div class="row"> <!-- Create labels -->
+                <div class="col-md-8">
+                    <label class="myLabel">Prefered mode of communication:</label>
                 </div>
-                <div class="row"> <!-- Create input fields -->
-                    <div class="col-sm-3">
-                        <div class="checkbox">
-                            <label><input name="emailCheck" type="checkbox" value="1" <?php if($record['emailcheck'] == "1") {echo "checked";} ?> >Email</label>
-                        </div>
+            </div>
+            <div class="row"> <!-- Row starts -->
+                <div class="col-sm-3">
+                    <div class="checkbox">
+                        <label><input name="emailCheck" type="checkbox" value="1" <?php if($record['emailcheck'] == "1") {echo "checked";} ?> >Email</label>
+                    </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="checkbox">
@@ -336,7 +340,7 @@ if (isset($_POST['submit'])) {
                         <label><input name="anyCheck" type="checkbox" value="1" <?php if($record['anycheck'] == "1") {echo "checked";} ?> >Any</label>
                     </div>
                 </div>
-            </div>
+            </div> <!-- Row ends -->
             <div class="row"> <!-- Create input fields -->
                 <div class="col-sm-12">
                     <div class="form-group">
@@ -347,7 +351,7 @@ if (isset($_POST['submit'])) {
             </div>
         </div>
         <div id="section5" class="container-fluid">
-            <div class="row"> <!-- Create input fields -->
+            <div class="row">
                 <div class="col-sm-12">
                     <input name="submit" type="submit" class="btn btn-default submit-button" value="submit">
                 </div>

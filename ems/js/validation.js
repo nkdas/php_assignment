@@ -37,7 +37,7 @@ $(document).ready(function(){
 			}
 		}
 
-		if (elementId == 'rpassword') { 
+		if (elementId == 'rpassword') {
 			if ($(this).val().length < 6) {
 				changeAppearanceError(this,"Should be of atleast 6 characters");
 			}

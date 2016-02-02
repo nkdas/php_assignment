@@ -1,6 +1,9 @@
-<?php 
+<?php
+/**
+* This page acts as the login page for the application.
+*/
+
 require_once('db_connection.php');
-require('header.php');
 
 // Store messages from session (if any) to $message
 $message='';
@@ -12,6 +15,7 @@ if (isset($_SESSION['message'])) {
 if (isset($_SESSION['id'])) {
     header("Location: home.php");
 }
+require('header.php');
 ?>
 
 <body>
@@ -28,6 +32,7 @@ if (isset($_SESSION['id'])) {
                 <div class="row">
                     <div class="col-md-12 message">
                         <?php
+                        // creating a div to show messages
                         if ($message) {
                             echo '<div id="message" class="jumbotron visibleDiv">';
                             echo '<label class="myLabel">'.$message.'</label></div>';
@@ -44,15 +49,13 @@ if (isset($_SESSION['id'])) {
                     <div class="row">
                         <div class="col-md-12">
                             <div id="loginForm" class="jumbotron">
-                                <label class="myLabel">Username</label>
                                 <div class="form-group">
+                                    <label class="myLabel">Username</label>
                                     <input name="username" type="text" class="form-control" id="username" value="<?php echo $_POST['username']; ?>"><br>
-                                </div>
-                                <label class="myLabel">Password</label>
-                                <div class="form-group">
+                                    <label class="myLabel">Password</label>
                                     <input name="password" type="password" class="form-control" id="password" value="<?php echo $_POST['password']; ?>"><br>
+                                    <input name="signin" id="signin" type="button" class="btn btn-primary" value="Sign in"><br>
                                 </div>
-                                <input name="signin" id="signin" type="button" class="btn btn-primary" value="Sign in"><br>
                                 <label class="myLabel"><a href="forgot_password.php">Forgot password? Click here!</a></label><br>
                                 <label class="myLabel"><a href="register.php">New user? Sign up here!</a></label>
                             </div>
@@ -62,7 +65,7 @@ if (isset($_SESSION['id'])) {
             </div>
             <div class="col-md-1">
             </div>
-        </div>           
+        </div>
     </section>
 </body>
 <?php require('footer.php'); ?>

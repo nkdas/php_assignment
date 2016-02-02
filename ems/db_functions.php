@@ -1,4 +1,8 @@
 <?php
+/**
+* This page provides database functions
+*/
+
 // function to insert a record while registration
 function insert_record($record, $connection) {
 	// prepare statement

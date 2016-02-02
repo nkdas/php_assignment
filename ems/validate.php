@@ -1,15 +1,22 @@
 <?php
+/**
+* This page validates the data entered by the user.
+*/
+
 require_once('db_connection.php');
 
-// $record will contain an array of data submitted by the user
-// $connection will store the database connection
-// $from will indicate which page is requesting a validation (registration page or the edit page)
+/**
+* $record will contain an array of data submitted by the user
+* $connection will store the database connection
+* $from will indicate which page is requesting a validation (registration page or the edit page)
+*/
+
 function validate($record, $connection, $from) {
 
 	//array to store the errors.
 	$errors = array();
-    //i serves as the key or index to the array $errors.
-	$i = 1; 
+	//i serves as the key or index to the array $errors.
+	$i = 1;
 
 	// validate photo
 	if ($record['photo'] == 'unknown extension') {
@@ -35,7 +42,7 @@ function validate($record, $connection, $from) {
 
 		// check if the username is already being used by someone
 		$username = $record['username'];
-	    $query = mysqli_query($connection, "SELECT id FROM details WHERE username = '$username'");
+		$query = mysqli_query($connection, "SELECT id FROM details WHERE username = '$username'");
 		if ($query and $row = mysqli_fetch_assoc($query)) {
 			$errors[$i] = "This username is already taken, Please use another";
 			$i++;
@@ -44,12 +51,12 @@ function validate($record, $connection, $from) {
 		if (empty($record['password'])) {
 			$errors[$i] = "You must enter your password";
 			$i++;
-		} 
+		}
 		// check the length of the password
 		else if (strlen($record['password']) < 6) {
 			$errors[$i] = "Passwords must be of at least 6 characters";
 			$i++;
-		} 
+		}
 		// check if both the passwords entered by the user match
 		if($record['password'] != $record['rpassword']) {
 			$errors[$i] = "Passwords entered in the 'Password' and 'Re-enter Password' fields donot match";
@@ -92,19 +99,19 @@ function validate($record, $connection, $from) {
 	// validate email
 	if (!preg_match('/^[a-z0-9_-]+@[a-z0-9._-]+\.[a-z]+$/i', $record['email'])) {
 		$errors[$i] = "Please enter a valid email";
-	} 
+	}
 
-    // check if the email is already being used by someone
-	$email = $record['email']; 
-    if($from == "update") {
-    	$userId = $_SESSION['id'];
+	// check if the email is already being used by someone
+	$email = $record['email'];
+	if($from == "update") {
+		$userId = $_SESSION['id'];
 		$query = mysqli_query($connection, "SELECT id 
 			FROM details
 			WHERE email = '$email' AND  id != $userId ");
 		if ($query and $row = mysqli_fetch_assoc($query)) {
 			$errors[$i] = "This email id is already taken, Please use another";
 			$i++;
-		}       
+		}
 	}
 	else
 	{
@@ -114,7 +121,7 @@ function validate($record, $connection, $from) {
 		if ($query and $row = mysqli_fetch_assoc($query)) {
 			$errors[$i] = "This email id is already taken, Please use another";
 			$i++;
-		}       
+		}
 	}
 
 	if (empty($record['gender'])) {
@@ -155,7 +162,7 @@ function validate($record, $connection, $from) {
 	}
 
 	if (empty($record['telephone'])) {
-		$errors[$i] = "You must enter your Residential Telephone number. 
+		$errors[$i] = "You must enter your Residential Telephone number.
 		If you donot have one, then enter your mobile number in both the fields";
 		$i++;
 	}
@@ -184,7 +191,10 @@ function validate($record, $connection, $from) {
 	return $errors;
 }
 
-// function to check uniqueness of username and email id as soon as user leaves the input field
+/**
+* function to check uniqueness of username and email id as soon as user leaves the input field
+*/
+
 $function_name = $_POST['function'];
 call_user_func($function_name);
 
@@ -205,7 +215,7 @@ function check_uniqueness() {
 		}
 		else {
 			$flag = 2;
-		}    
+		}
 	}
 	else {
 		$query = mysqli_query($connection, "SELECT id 

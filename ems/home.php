@@ -1,6 +1,9 @@
-<?php 
+<?php
+/**
+* This page acts as the homepage for the user after signing in, which shows all the entered details about the user
+*/
+
 require_once('db_connection.php');
-require('header.php');
 
 // this variable acts as a flag to determine if user details are retrieved successfully from the database
 // and weather to show the home page or not
@@ -20,7 +23,7 @@ if (isset($_SESSION['id'])) {
             emailcheck, messagecheck, phonecheck, anycheck, more, photo
             FROM details
             WHERE id = $userId");
-    if ($query and $row = mysqli_fetch_assoc($query)) { 
+    if ($query and $row = mysqli_fetch_assoc($query)) {
         $pass = 1;
         $name = $row['firstname'] . " " . $row['middlename'] . " " . $row['lastname'];
         $_SESSION['name'] = $name;
@@ -30,6 +33,7 @@ if (isset($_SESSION['id'])) {
 else {
     header("Location: index.php");
 }
+require('header.php');
 ?>
 
 <?php if ($pass == 1) { ?>
@@ -37,7 +41,7 @@ else {
     <nav class="navbar navbar-inverse" data-spy="affix">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#homeNavbar"> 
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#homeNavbar">
                     <span class="icon-bar"></span> 
                     <span class="icon-bar"></span> 
                     <span class="icon-bar"></span> 
@@ -58,10 +62,10 @@ else {
         </div>
     </nav>
     <div id="section1" class="container-fluid">
-        <!-- This div is used to display messages to the user -->
         <div class="row">
             <div class="col-md-12">
                 <?php
+                // creating a div to show messages
                     if ($message) {
                         echo '<div id="message" class="jumbotron visibleDiv">';
                         echo '<label class="myLabel">'.$message.'</label></div>';
@@ -176,7 +180,7 @@ else {
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">       
+                        <div class="col-md-6">
                             <h3 class="homeHeading">Residence details</h3>
                             <div class="row"> <!-- Street -->
                                 <div class="col-sm-4">
@@ -256,7 +260,7 @@ else {
                             </div> <!-- Row ends -->
                         </div>
 
-                        <div class="col-md-6"> 
+                        <div class="col-md-6">
                             <h3 class="homeHeading">Office details</h3>
                             <div class="row"> <!-- Street -->
                                 <div class="col-sm-4">
@@ -334,7 +338,7 @@ else {
                                     </label>
                                 </div>
                             </div> <!-- Row ends -->
-                        </div>    
+                        </div>
                     </div>
                 </div>
             </div>
