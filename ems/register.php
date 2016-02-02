@@ -84,6 +84,12 @@ require('header.php');
                         ?>
                     </div>
                 </div>
+            </div><br>
+            <div id="progress" class="progress hiddenDiv">
+                <div class="progress-bar progress-bar-striped active" role="progressbar"
+                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                Processing please wait
+                </div>
             </div>
             <h1>Basic Information</h1>
             <div class="row">
@@ -99,6 +105,12 @@ require('header.php');
                             <label class="myLabel">Username:</label>
                             <div class="form-group">
                                 <input name="username" type="text" class="form-control unique" id="username" value="<?php echo $record['username']; ?>">
+                            </div>
+                            <div id="usernameProgress" class="progress hiddenDiv">
+                                <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                Checking
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -188,6 +200,12 @@ require('header.php');
                             <label class="myLabel">Email:</label>
                             <div class="form-group">
                                 <input name="email" type="text" class="form-control unique" id="email" placeholder="someone@example.com" value="<?php echo $record['email']; ?>">
+                            </div>
+                            <div id="emailProgress" class="progress hiddenDiv">
+                                <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                Checking
+                                </div>
                             </div>
                         </div>
                     </div> <!-- Row ends -->

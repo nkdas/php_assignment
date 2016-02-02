@@ -1,6 +1,8 @@
 // function to send credentials to the server and authenticate user
 $("document").ready(function(){
 	$("#signin").click(function(){
+		$("#progress").removeClass("hiddenDiv");
+		$("#progress").addClass("visibleDiv");
 		var errors = "";
 		if ($('#username').val() == "") {
 			errors += "<label class='myLabel'>Username cannot be blank</label><br>";
@@ -36,6 +38,8 @@ $("document").ready(function(){
 		if (errors.length != 0) { 
 			showErrors(errors);
 		}
+		$(".progress").removeClass("visibleDiv");
+		$(".progress").addClass("hiddenDiv");
 	});
 
 	function showErrors(errors) {

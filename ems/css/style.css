@@ -137,3 +137,14 @@ input, select, textarea {
 .visibleDiv {
 	display: block;
 }
+
+.progress-bar {
+	background-color: #005 !important;
+}
+
+.progress {
+	border-radius: 0px !important;
+	-webkit-box-shadow: 0 0 5px 1px #00f;
+	-moz-box-shadow: 0 0 5px 1px #00f;
+	box-shadow: 0 0 5px 1px #00f;
+}

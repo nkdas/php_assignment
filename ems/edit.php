@@ -89,6 +89,12 @@ require('header.php');
                     }
                     ?>
                 </div>
+            </div><br>
+            <div id="progress" class="progress hiddenDiv">
+                <div class="progress-bar progress-bar-striped active" role="progressbar"
+                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                Processing please wait
+                </div>
             </div>
             <h1>Basic Information</h1>
             <div class="row">

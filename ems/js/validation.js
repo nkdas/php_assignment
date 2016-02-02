@@ -70,16 +70,28 @@ $(document).ready(function(){
 			}
 		}
 
+		if (elementId == 'zip') { 
+			if (!$(this).val().match(numbers)) {
+				changeAppearanceError(this,"Zip must contain only numbers");
+			}
+			else {
+				changeAppearanceCorrect(this);
+			}
+		}
+
 		if ($(this).val() == "") {
 			changeAppearanceError(this,"This field cannot be left blank");
 		}
-		else if((elementId == 'street') || (elementId == 'datePicker') || (elementId == 'zip')){
+		else if((elementId == 'street') || (elementId == 'datePicker')){
 				changeAppearanceCorrect(this);
 		}
   	});
 
   	// Add function to the form submission
   	$(".submit-button").on('click', function validate(){
+  		$("#progress").removeClass("hiddenDiv");
+		$("#progress").addClass("visibleDiv");
+
   		origin = $(this).attr('name');
 		var letters = /^[a-zA-Z ]+$/;
 		var numbers = /^[0-9]+$/;
@@ -192,6 +204,10 @@ $(document).ready(function(){
 			errors += "<label class='myLabel'>Please enter your residential zip code</label><br>";
 			changeAppearanceError('#zip',"This field cannot be left blank");
 		}
+		else if (!$('#zip').val().match(numbers)) {
+			errors += "<label class='myLabel'>Zip must contain only numbers</label><br>";
+			changeAppearanceError('#zip',"Zip must contain only numbers");
+		}
 
 		if ($('#telephone').val() == "") {
 			errors += "<label class='myLabel'>Please enter your residential telephone number</label><br>";
@@ -230,6 +246,16 @@ $(document).ready(function(){
 
 	// function to check uniqueness of username and email id as soon as user leaves the input field
 	$(".unique").on('blur', function(){
+		if ($(this).attr('id') == "username") {
+			$("#usernameProgress").removeClass("hiddenDiv");
+			$("#usernameProgress").addClass("visibleDiv");
+		}
+		else if ($(this).attr('id') == "email") {
+			$("#emailProgress").removeClass("hiddenDiv");
+			$("#emailProgress").addClass("visibleDiv");
+		}
+		
+
 		// check for which element the uniqueness is being checked (username or email id)
 		if ($(this).attr('id') == 'email') {
 			var element = 'email';
@@ -283,5 +309,14 @@ $(document).ready(function(){
 				console.log('error');
 			},
 		});
+		
+		if ($(this).attr('id') == "username") {
+			$("#usernameProgress").removeClass("visibleDiv");
+			$("#usernameProgress").addClass("hiddenDiv");
+		}
+		else if ($(this).attr('id') == "email") {
+			$("#emailProgress").removeClass("visibleDiv");
+			$("#emailProgress").addClass("hiddenDiv");
+		}
 	});
 });
