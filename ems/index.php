@@ -59,10 +59,9 @@ require('header.php');
                                 <label class="myLabel"><a href="forgot_password.php">Forgot password? Click here!</a></label><br>
                                 <label class="myLabel"><a href="register.php">New user? Sign up here!</a></label>
                                 <div id="progress" class="progress hiddenDiv">
-									<div class="progress-bar progress-bar-striped active" role="progressbar"
-									aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-									Checking
-									</div>
+                                	<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                		Checking
+                                	</div>
 								</div>
                             </div>
                         </div>

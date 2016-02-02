@@ -180,6 +180,12 @@ require('header.php');
                             <div class="form-group">
                                 <input name="email" type="text" class="form-control unique edit" id="email" placeholder="someone@example.com" value="<?php echo htmlentities($row['email']); ?>">
                             </div>
+                            <div id="emailProgress" class="progress hiddenDiv">
+                                <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                Checking
+                                </div>
+                            </div>
                         </div>
                     </div> <!-- Row ends -->
 
