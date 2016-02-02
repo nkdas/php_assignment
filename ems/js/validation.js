@@ -20,6 +20,16 @@ function changeAppearanceCorrect(element) {
 	$(".has-success .form-control").css("border-color", "#092");
 }
 
+function enableButton(button) {
+	$(button).removeClass("disabled");
+	$(button).prop('disabled', false);
+}
+
+function disableButton(button) {
+	$(button).addClass("disabled");
+	$(button).prop('disabled', true);
+}
+
 $(document).ready(function(){
 	// validation when the user leaves an input field
   	$(".required").on('blur', function(){
@@ -88,9 +98,10 @@ $(document).ready(function(){
   	});
 
   	// Add function to the form submission
-  	$(".submit-button").on('click', function validate(){
+  	$(".submit-button").on('click', function validate(){ 
   		$("#progress").removeClass("hiddenDiv");
 		$("#progress").addClass("visibleDiv");
+		disableButton(".submit-button");
 
   		origin = $(this).attr('name');
 		var letters = /^[a-zA-Z ]+$/;
@@ -235,6 +246,9 @@ $(document).ready(function(){
 			$('.message').html("<div id='message' class='jumbotron visibleDiv'>" +
 				"<label class='myLabel'>" + errors + "</label></div>");
 			window.scroll(0,0);
+			$("#progress").removeClass("visibleDiv");
+			$("#progress").addClass("hiddenDiv");
+			enableButton(".submit-button");
 			return false;
 		}
 		else {
