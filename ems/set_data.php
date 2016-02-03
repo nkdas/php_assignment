@@ -15,33 +15,33 @@ function set_data($post, $files, $connection) {
 	{
 		$path = getcwd();
 		// check if the uploaded image is present in $_FILES
-	    if ($_FILES['photo']['name']) {
-	        $photo = basename($_FILES['photo']['name']);
-	        $imageFileType = pathinfo($path . '/images/'. $photo,PATHINFO_EXTENSION);
-	        // move the image to the server only if it is a .jpg, .png, .jprg or .gif
-	        if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "gif" ) {
-	        	move_uploaded_file($_FILES['photo']['tmp_name'], $path . "/images/" . $photo);
-	        }
-	        else {
-	        	$photo = 'unknown extension';
-	        }
-	    }
+		if ($_FILES['photo']['name']) {
+			$photo = basename($_FILES['photo']['name']);
+			$imageFileType = pathinfo($path . '/images/'. $photo,PATHINFO_EXTENSION);
+			// move the image to the server only if it is a .jpg, .png, .jprg or .gif
+			if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "gif" ) {
+				move_uploaded_file($_FILES['photo']['tmp_name'], $path . "/images/" . $photo);
+			}
+			else {
+				$photo = 'unknown extension';
+			}
+		}
 
-	    // check if the image was already in the $_SESSION
-	    else if ($_SESSION['photo']) {
-	        $photo = $_SESSION['photo'];
-	    }
+		// check if the image was already in the $_SESSION
+		else if ($_SESSION['photo']) {
+			$photo = $_SESSION['photo'];
+		}
 
-	    // if the image is neither in the $_FILES nor $_SESSION then set the default image for the user
-	    else {
-	        $photo = "userTile.png";
-	    }
+		// if the image is neither in the $_FILES nor $_SESSION then set the default image for the user
+		else {
+			$photo = "userTile.png";
+		}
 	}
 	catch (Exception $ex) {}
 
-    // fetch user details from $post
-    try
- 	{
+	// fetch user details from $post
+	try
+	{
 		$record['username'] = mysqli_real_escape_string($connection, trim($post['username']));
 	}
 	catch (Exception $ex) {}

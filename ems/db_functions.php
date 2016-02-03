@@ -32,10 +32,10 @@ function insert_record($record, $connection) {
 			if ($query and $row = mysqli_fetch_assoc($query)) {
 
 				$key = md5($row['id']);
-                //if insertion to the database completed successfully
+				//if insertion to the database completed successfully
 				$query2 = mysqli_query($connection, "UPDATE details SET activation_key = '$key' WHERE username = '$username' "); 
 
-                // create session to carry the data required to send email and redirect the page to mail.php
+				// create session to carry the data required to send email and redirect the page to mail.php
 				$_SESSION['id'] = $row['id'];
 				$_SESSION['mail_to'] = $record['email'];
 				$_SESSION['subject'] = "Account activation";
@@ -58,30 +58,6 @@ function insert_record($record, $connection) {
 	}
 }
 
-// function to authenticate a user while signing in
-function check_login_details($username, $password, $connection) {	
-	$query = "SELECT id, activation
-                FROM details 
-                WHERE username = '$username' AND password = '$password'";
-	$sql = mysqli_query($connection, $query);
-
-    // if the query executes successfully then the user is registered and the credentials are valid
-    if ($sql and $row = mysqli_fetch_assoc($sql)) {
-	    // check if the account of the registered user is activated
-	    if($row['activation'] == 1) {
-	    	// if the account of the user is activated, then create sessions for the user and
-	        $_SESSION['id'] = $row['id'];
-	        return 1;
-	    }
-	    else {
-	        return 2;
-	    }
-	}
-	else {
-		return 3;
-	}
-}
-
 // function to update the record of a user
 function update_record($userId, $connection, $record) {	
 	$query = "UPDATE details 
@@ -97,24 +73,24 @@ function update_record($userId, $connection, $record) {
 	"' WHERE id = $userId";
 	$sql = mysqli_query($connection, $query);
 
-    if($sql) {
-        return 1;
-    }
-    else {
-        return 2;
-    }
+	if($sql) {
+		return 1;
+	}
+	else {
+		return 2;
+	}
 }
 
 // function to retrieve record from the database and send to editing form
 function get_record_for_updation($userId, $connection) {	
 	$query = mysqli_query($connection, "SELECT username, password, firstname, middlename, lastname, suffix, gender, dob, marital, employement, employer, email, 
-                street, city, state, zip, telephone, mobile, fax, ostreet, ocity, ostate, ozip, otelephone, omobile, ofax,
-                emailcheck, messagecheck, phonecheck, anycheck, more, photo
-                FROM details
-                WHERE id = $userId");
-    if ($query and $row = mysqli_fetch_assoc($query)) { 
-        $_SESSION['photo'] = $row['photo'];
-    }
-    return $row;
+		street, city, state, zip, telephone, mobile, fax, ostreet, ocity, ostate, ozip, otelephone, omobile, ofax,
+		emailcheck, messagecheck, phonecheck, anycheck, more, photo
+		FROM details
+		WHERE id = $userId");
+	if ($query and $row = mysqli_fetch_assoc($query)) { 
+		$_SESSION['photo'] = $row['photo'];
+	}
+	return $row;
 }
 ?>

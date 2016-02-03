@@ -31,11 +31,11 @@ $query = "UPDATE details
 	$sql = mysqli_query($connection, $query);
 
 	if($sql) {
-        $status = array('status' => '1');
-        echo json_encode($status);
-    }
-    else {
-        $status = array('status' => $connection->error);
-        echo json_encode($status);
-    }
+		$status = array('status' => '1');
+		echo json_encode($status);
+	}
+	else {
+		$status = array('status' => $connection->error);
+		echo json_encode($status);
+	}
 ?>

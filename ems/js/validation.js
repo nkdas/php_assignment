@@ -32,12 +32,12 @@ function disableButton(button) {
 
 $(document).ready(function(){
 	// validation when the user leaves an input field
-  	$(".required").on('blur', function(){
-  		var letters = /^[a-zA-Z ]+$/;
+	$(".required").on('blur', function(){
+		var letters = /^[a-zA-Z ]+$/;
 		var numbers = /^[0-9]+$/;
 		var emailRegex = /^[a-z0-9_-]+@[a-z0-9._-]+\.[a-z]+$/i;
-  		var elementId = $(this).attr('id');
-		
+		var elementId = $(this).attr('id');
+
 		if (elementId == 'password') { 
 			if ($(this).val().length < 6) {
 				changeAppearanceError(this,"Should be of atleast 6 characters");
@@ -95,18 +95,18 @@ $(document).ready(function(){
 		else if((elementId == 'street') || (elementId == 'datePicker')){
 				changeAppearanceCorrect(this);
 		}
-  	});
+	});
 
 	$("#form").submit(function(){
 		//disableButton('.submit-button');
 	});
 
-  	// Add function to the form submission
-  	$(".submit-button").on('click', function validate(){ 
-  		$("#progress").removeClass("hiddenDiv");
+	// Add function to the form submission
+	$(".submit-button").on('click', function validate(){ 
+		$("#progress").removeClass("hiddenDiv");
 		$("#progress").addClass("visibleDiv");
 
-  		origin = $(this).attr('name');
+		origin = $(this).attr('name');
 		var letters = /^[a-zA-Z ]+$/;
 		var numbers = /^[0-9]+$/;
 		var emailRegex = /^[a-z0-9_-]+@[a-z0-9._-]+\.[a-z]+$/i;
@@ -259,7 +259,7 @@ $(document).ready(function(){
 			window.scroll(0,0);
 			return true;
 		}
-  	});
+	});
 
 	// function to check uniqueness of username and email id as soon as user leaves the input field
 	$(".unique").on('blur', function(){
@@ -320,7 +320,7 @@ $(document).ready(function(){
 					else {
 						changeAppearanceCorrect('#username'); 
 					}
-				} 
+				}
 			},
 			error: function(request, status, error) {
 				console.log('error');

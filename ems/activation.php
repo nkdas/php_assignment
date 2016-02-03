@@ -19,13 +19,13 @@ try {
 		// update the activation field of the user details to 1
 		$query = mysqli_query($connection, "UPDATE details 
 											SET activation = 1
-	       									WHERE id = $userId");
+											WHERE id = $userId");
 		
 		// if updation is successful, it means the user is activated
 		// redirect to index page and show a message that the account is activated
 		if($query) {
 			$_SESSION['message'] = "Your account is activated!<br>You are ready to Sign in.";
-		    header("Location: index.php");
+			header("Location: index.php");
 		}
 	}
 }

@@ -1,17 +1,17 @@
 $(document).ready(function() {
 	dat = $('#employee').DataTable({
 		paging: true,
-    	searching: true,
-    	retrieve: true,
+		searching: true,
+		retrieve: true,
 		"ajax": "fetch_records.php"
-    });
+	});
 });
 
 function confirmDeletion(username) {
 	$('.modal-title').html("Are you sure? You want to delete this Record!");
 	$modalContent = "<input type='button' onclick='deleteRecord(\"" + username + "\")' class='btn btn-primary' value='YES'>" +
 		"&nbsp<input type='button' class='btn btn-primary' value='NO' data-dismiss='modal'>";
-	
+
 	$('.modal-body').html($modalContent);
 	$('#myModal').modal('show');
 }
@@ -59,7 +59,7 @@ function editRecord(record) {
 	"<label>Mobile</label><input name='mobile' type='text' class='form-control' value='" + record['mobile'] + "'>" +
 	"<label>FAX</label><input name='fax' type='text' class='form-control' value='" + record['fax'] + "'><br>" +
 	"<input type='button' onclick='updateRecord()' class='btn btn-primary' value='Update'></form>";
-	
+
 	$('.modal-body').html($modalContent);
 	$('#myModal').modal('show');
 }
