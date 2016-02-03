@@ -67,7 +67,7 @@ require('header.php');
             </div>
         </div>
     </nav>
-    <form name="form" class="form" enctype="multipart/form-data" action="register.php" method="post">
+    <form name="form" id="form" class="form" enctype="multipart/form-data" action="register.php" method="post">
         <div id="section1" class="container-fluid">
             <div class="row">
                 <div class="col-md-12">

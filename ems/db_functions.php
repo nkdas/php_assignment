@@ -97,7 +97,7 @@ function update_record($userId, $connection, $record) {
 	"' WHERE id = $userId";
 	$sql = mysqli_query($connection, $query);
 
-    if($query) {
+    if($sql) {
         return 1;
     }
     else {

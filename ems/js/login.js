@@ -25,9 +25,12 @@ $("document").ready(function(){
 						errors += "<label class='myLabel'>Please activate your account before signing in</label><br>";
 						showErrors(errors);
 					}
-					else {
+					else if (data.status == '3') {
 						errors += "<label class='myLabel'>Either username or password is invalid</label><br>";
 						showErrors(errors);
+					}
+					else if (data.status == '4') {
+						window.location.replace("admin.php");
 					}
 				},
 				error: function() {

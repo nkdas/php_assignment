@@ -97,11 +97,14 @@ $(document).ready(function(){
 		}
   	});
 
+	$("#form").submit(function(){
+		//disableButton('.submit-button');
+	});
+
   	// Add function to the form submission
   	$(".submit-button").on('click', function validate(){ 
   		$("#progress").removeClass("hiddenDiv");
 		$("#progress").addClass("visibleDiv");
-		disableButton(".submit-button");
 
   		origin = $(this).attr('name');
 		var letters = /^[a-zA-Z ]+$/;

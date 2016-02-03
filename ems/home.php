@@ -55,6 +55,7 @@ require('header.php');
                     <ul class="nav navbar-nav">
                         <li><a href="edit.php">Edit profile</a></li>
                         <li><a href="change_password.php">Change password</a></li>
+                        <li><a href="#">Show users</a></li>
                         <li><a href="logout.php">Sign out</a></li>
                     </ul>
                 </div>
@@ -65,7 +66,7 @@ require('header.php');
         <div class="row">
             <div class="col-md-12">
                 <?php
-                // creating a div to show messages
+                    // creating a div to show messages
                     if ($message) {
                         echo '<div id="message" class="jumbotron visibleDiv">';
                         echo '<label class="myLabel">'.$message.'</label></div>';

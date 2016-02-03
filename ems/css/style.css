@@ -148,3 +148,16 @@ input, select, textarea {
 	-moz-box-shadow: 0 0 5px 1px #00f;
 	box-shadow: 0 0 5px 1px #00f;
 }
+
+#employee, .table-responsive {
+	color: #333 !important;
+	background-color: #fff !important;
+	padding: 5px !important;
+}
+#myModal {
+	color: #333 !important;
+}
+
+.modal {
+	top: 40px !important;
+}
