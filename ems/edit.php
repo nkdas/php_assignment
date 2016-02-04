@@ -62,6 +62,7 @@ require('header.php');
                 </button>
                 <a class="navbar-brand" href="home.php"><?php echo htmlentities($row['firstname']) . " " . htmlentities($row['middlename']) . " " . htmlentities($row['lastname']);?></a>
                 <a class="navbar-brand" href="home.php">Back</a>
+                <a class="navbar-brand" href="logout.php">Sign out</a>
             </div>
             <div>
                 <div class="collapse navbar-collapse" id="myNavbar">
