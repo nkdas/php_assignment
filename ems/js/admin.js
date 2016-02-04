@@ -44,11 +44,37 @@ function editRecord(record) {
 	"<label>First name</label><input name='firstname' type='text' class='form-control' value='" + record['firstname'] + "'>" +
 	"<label>Middle name</label><input name='middlename' type='text' class='form-control' value='" + record['middlename'] + "'>" +
 	"<label>Last name</label><input name='lastname' type='text' class='form-control' value='" + record['lastname'] + "'>" +
-	"<label>Suffix</label><input name='suffix' type='text' class='form-control' value='" + record['suffix'] + "'>" +
-	"<label>Gender</label><input name='gender' type='text' class='form-control' value='" + record['gender'] + "'>" +
+	"<label>Suffix</label>" +
+	"<select name='suffix' class='form-control' id='suffix'>" +
+	"<option value='M.Tech'>M.Tech</option>" +
+	"<option value='B.Tech'>B.Tech</option>" +
+	"<option value='M.B.A'>M.B.A</option>" +
+	"<option value='B.B.A'>B.B.A</option>" +
+	"<option value='M.C.A'>M.C.A</option>" +
+	"<option value='B.C.A'>B.C.A</option>" +
+	"<option value='Ph.D'>Ph.D</option></select>" +
+
+	"<label>Gender</label>" +
+	"<select name='gender' class='form-control' id='gender'>" +
+	"<option value='1'>Male</option>" +
+	"<option value='2'>Female</option></select>" +
+
 	"<label>DOB</label><input name='dob' type='text' class='form-control' value='" + record['dob'] + "'>" +
-	"<label>Marital status</label><input name='marital' type='text' class='form-control' value='" + record['marital'] + "'>" +
-	"<label>Employment status</label><input name='employement' type='text' class='form-control' value='" + record['employement'] + "'>" +
+
+	"<label>Marital status</label>" +
+	"<select id='marital' name='marital' class='form-control'>" +
+	"<option value='Single'>Single</option>" +
+	"<option value='Married'>Married</option>" +
+	"<option value='Separated'>Separated</option>" +
+	"<option value='Divorced'>Divorced</option>" +
+	"<option value='Widowed'>Widowed</option></select>" +
+
+	"<label>Employment status</label>" +
+	"<select name='employement' class='form-control' id='employement'>" +
+	"<option value='Student'>Student</option>" +
+	"<option value='Self-employed'>Self-employed</option>" +
+	"<option value='Unemployed'>Unemployed</option></select>" +
+
 	"<label>Employer</label><input name='employer' type='text' class='form-control' value='" + record['employer'] + "'>" +
 	"<label>Email</label><input name='email' type='text' class='form-control' value='" + record['email'] + "'>" +
 	"<label>Street</label><input name='street' type='text' class='form-control' value='" + record['street'] + "'>" + 
@@ -62,6 +88,10 @@ function editRecord(record) {
 
 	$('.modal-body').html($modalContent);
 	$('#myModal').modal('show');
+	$("#suffix option[value='" + record['suffix'] + "']").attr('selected','selected'); 
+	$("#gender option[value='" + record['gender'] + "']").attr('selected','selected'); 
+	$("#marital option[value='" + record['marital'] + "']").attr('selected','selected'); 
+	$("#employement option[value='" + record['employement'] + "']").attr('selected','selected'); 
 }
 
 function updateRecord() {
@@ -81,7 +111,7 @@ function updateRecord() {
 			}
 		},
 		error: function() {
-			
+			console.log('error');
 		},
 	});
 }

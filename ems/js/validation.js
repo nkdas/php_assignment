@@ -30,6 +30,14 @@ function disableButton(button) {
 	$(button).prop('disabled', true);
 }
 
+function showButton(button) {
+	$(button).removeClass("hiddenDiv");
+}
+
+function hideButton(button) {
+	$(button).addClass("hiddenDiv");
+}
+
 $(document).ready(function(){
 	// validation when the user leaves an input field
 	$(".required").on('blur', function(){
@@ -97,14 +105,11 @@ $(document).ready(function(){
 		}
 	});
 
-	$("#form").submit(function(){
-		//disableButton('.submit-button');
-	});
-
 	// Add function to the form submission
 	$(".submit-button").on('click', function validate(){ 
 		$("#progress").removeClass("hiddenDiv");
 		$("#progress").addClass("visibleDiv");
+		hideButton('.submit-button');
 
 		origin = $(this).attr('name');
 		var letters = /^[a-zA-Z ]+$/;
@@ -251,7 +256,7 @@ $(document).ready(function(){
 			window.scroll(0,0);
 			$("#progress").removeClass("visibleDiv");
 			$("#progress").addClass("hiddenDiv");
-			enableButton(".submit-button");
+			showButton(".submit-button");
 			return false;
 		}
 		else {
